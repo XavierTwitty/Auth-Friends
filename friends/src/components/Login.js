@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 class Login extends React.Component {
   state = {
@@ -20,13 +22,14 @@ class Login extends React.Component {
   };
 
   login = (e) => {
-    console.log("hey");
+    console.log("user login");
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/api/login", this.state.credentials)
+    axiosWithAuth()
+      .post("api/login", this.state.credentials)
       .then((res) => {
-        localStorage.getItem("token", res.data.payload);
+        localStorage.setItem("token", res.data.payload);
         console.log("data", res.data);
+        this.props.history.push("/FriendsList");
       })
       .catch((err) => console.log(err));
   };
