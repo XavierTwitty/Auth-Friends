@@ -20,15 +20,7 @@ export default function UpdateForm(props) {
         .put(`/api/friends/${props.friendToEdit.id}`, form)
         .then((res) => {
           console.log(res);
-          props.setFriends(
-            props.friends.map((friend) => {
-              if (friend.id === Number(res.data.id)) {
-                return res.data;
-              } else {
-                return friend;
-              }
-            })
-          );
+          props.setFriends(res.data);
         })
         .catch((err) => console.log(err));
     } else {
@@ -49,9 +41,7 @@ export default function UpdateForm(props) {
       .delete(`/api/friends/${props.friendToEdit.id}`)
       .then((res) => {
         console.log(res);
-        props.setFriends(
-          props.friends.filter((friend) => friend.id != Number(res.data))
-        );
+        props.setFriends(res.data);
       })
       .catch((err) => console.log(err));
   };
