@@ -2,7 +2,7 @@ const FriendCard = (props) => {
   const { name, age, email } = props.friend;
 
   return (
-    <div>
+    <div onClick={() => props.setFriendToEdit(props.friend)}>
       <div>
         <h2> Name: {name} </h2>
       </div>

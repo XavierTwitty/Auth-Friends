@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getFriends } from "../utils/getFriends";
 import FriendCard from "./FriendCard";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import UpdateForm from "./UpdateForm";
 
 export default function FriendList() {
   const [friends, setFriends] = useState([]);
@@ -26,6 +27,20 @@ export default function FriendList() {
   return (
     <div>
       <h1>List Of Friends</h1>
+      {addFriend && (
+        <UpdateForm setAddFriend={setAddFriend} setFriends={setFriends} />
+      )}
+      {friendToEdit ? (
+        <UpdateForm
+          friendToEdit={friendToEdit}
+          setFriendToEdit={setFriendToEdit}
+          friends={friends}
+          setFriends={setFriends}
+        />
+      ) : (
+        <button onClick={() => setAddFriend(true)}> add friend </button>
+      )}
+
       {friends.map((friend) => (
         <FriendCard
           friend={friend}
